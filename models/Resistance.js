@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ResistanceSchema = new Schema ({
-  type: "resistance",
+  type: {
+    type: String,
+    default: "resistance"
+  },
   name: {
     type: String,
     required: true

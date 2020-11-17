@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CardioSchema = new Schema ({
-  type: "cardio",
+  type: {
+    type: String,
+    default: "cardio"
+  },
   name: {
     type: String,
     required: true
