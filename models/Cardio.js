@@ -19,6 +19,14 @@ const CardioSchema = new Schema ({
     type: Number,
     required: true
   }
+},
+{
+  toOBject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 const Cardio = mongoose.model("Cardio", CardioSchema);

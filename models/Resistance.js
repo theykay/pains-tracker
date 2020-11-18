@@ -27,7 +27,21 @@ const ResistanceSchema = new Schema ({
     type: Number,
     required: true
   }
+},
+{
+  toOBject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
+
+ResistanceSchema
+  .virtual('totalDuration')
+  .get(function() {
+    return this.duration
+  })
 
 const Resistance = mongoose.model("Resistance", ResistanceSchema);
 

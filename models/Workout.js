@@ -18,6 +18,14 @@ const WorkoutSchema = new Schema ({
       ref: "Cardio"
     }
   ]
+},
+{
+  toOBject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
+  }
 });
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
