@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const routes = require("./controller/routes");
 
 var app = express();
-var PORT = process.env.PORT || 3e3;
+var PORT = process.env.PORT || 8080;
+const db = require("./models");
 
 app.use(express.static("public", {
   extensions: ["html"]

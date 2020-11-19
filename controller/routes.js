@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../models");
+const Workout = require("../models/Workout");
 
 // async getLastWorkout() {
 //   let res;
@@ -13,7 +13,10 @@ const db = require("../models");
 //   return json[json.length - 1];
 // },
 router.get("/api/workouts", (req, res) => {
-
+  Workout.find({}, (err, data) => {
+    if (err) res.send(err)
+    else res.json(data);
+  })
 });
 
 // async addExercise(data) {
@@ -27,7 +30,10 @@ router.get("/api/workouts", (req, res) => {
 //   return json;
 // },
 router.post("/api/workouts/:id", (req, res) => {
-
+  Workout.create(req.body, (err, data) => {
+    if (err) res.send(err)
+    else res.send(data);
+  })
 });
 
 // async createWorkout(data = {}) {
@@ -40,7 +46,10 @@ router.post("/api/workouts/:id", (req, res) => {
 //   return json;
 // },
 router.post("/api/workouts", (req, res) => {
-
+  Workout.create(req.body, (err, data) => {
+    if (err) res.send(err)
+    else res.send(data);
+  });
 });
 
 // async getWorkoutsInRange() {
@@ -49,7 +58,11 @@ router.post("/api/workouts", (req, res) => {
 //   return json;
 // },
 router.get("/api/workouts/range", (req, res) => {
-
+  Workouts.find({}, (err, data) => {
+    if (err) { res.send(err) }
+    else {res.json(data)};
+  })
+  
 });
 
 module.exports = router;
