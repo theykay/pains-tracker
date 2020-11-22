@@ -1,4 +1,7 @@
 const express = require("express");
+const path = require("path");
+const { inflateRawSync } = require("zlib");
+// const { db } = require("../models/Workout");
 const router = express.Router();
 const Workout = require("../models/Workout");
 
@@ -12,11 +15,13 @@ const Workout = require("../models/Workout");
 //   const json = await res.json();
 //   return json[json.length - 1];
 // },
-router.get("/api/workouts", (req, res) => {
-  Workout.find({}, (err, data) => {
-    if (err) res.send(err)
-    else res.json(data);
-  })
+router.get("/api/workouts", async (req, res) => {
+  try {
+    const data = await Workout.find({});
+    res.json(data);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
 // async addExercise(data) {
@@ -29,11 +34,16 @@ router.get("/api/workouts", (req, res) => {
 //   const json = await res.json();
 //   return json;
 // },
-router.post("/api/workouts/:id", (req, res) => {
-  Workout.create(req.body, (err, data) => {
-    if (err) res.send(err)
-    else res.send(data);
-  })
+router.put("/api/workouts/:id", async (req, res) => {
+  try {
+    let saved = [];
+    const previous = await Workout.findById(req.params.id);
+    saved = previous.exercises;
+    let allExercises = [...saved, req.body];
+    res.json(allExercises);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
 // async createWorkout(data = {}) {
@@ -45,11 +55,13 @@ router.post("/api/workouts/:id", (req, res) => {
 //   const json = await res.json();
 //   return json;
 // },
-router.post("/api/workouts", (req, res) => {
-  Workout.create(req.body, (err, data) => {
-    if (err) res.send(err)
-    else res.send(data);
-  });
+router.post("/api/workouts", async (req, res) => {
+  try {
+    const data = await Workout.create(req.body);
+    res.json(data);
+  } catch (err) {
+    res.status(400).json(err);
+  };
 });
 
 // async getWorkoutsInRange() {
@@ -57,12 +69,25 @@ router.post("/api/workouts", (req, res) => {
 //   const json = await res.json();
 //   return json;
 // },
-router.get("/api/workouts/range", (req, res) => {
-  Workouts.find({}, (err, data) => {
-    if (err) { res.send(err) }
-    else {res.json(data)};
-  })
-  
+router.get("/api/workouts/range", async (req, res) => {
+  try {
+    const data = await Workout.find({});
+    res.json(data);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
+
+router.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+})
+
+router.get("/stats", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/stats.html"));
+})
+
+router.get("/exercise", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/exercise.html"));
+})
 
 module.exports = router;

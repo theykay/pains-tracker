@@ -11,7 +11,7 @@ app.use(express.static("public", {
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(routes);
+app.use("/", routes);
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/pain-tracker",
@@ -21,7 +21,12 @@ mongoose.connect(
     useCreateIndex: true,
     useFindAndModify: false
   }
-);
-app.listen(PORT, () => {
-  console.log(`Now listening on PORT: ${PORT}`);
+)
+.then(() => {
+  app.listen(PORT, () => {
+    console.log(`Now listening on PORT: ${PORT}`);
+  });
+})
+.catch((err) => {
+  console.log(err)
 });
