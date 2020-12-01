@@ -19,9 +19,9 @@ const Workout = require("../models/Workout");
 router.get("/api/workouts", async (req, res) => {
   try {
     const data = await Workout.find({});
-    res.json(data);
+    return res.json(data);
   } catch (err) {
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 });
 
@@ -41,9 +41,9 @@ router.put("/api/workouts/:id", async (req, res) => {
     const previous = await Workout.findById(req.params.id);
     saved = previous.exercises;
     let allExercises = [...saved, req.body];
-    res.json(allExercises);
+    return res.json(allExercises);
   } catch (err) {
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 });
 
@@ -59,9 +59,9 @@ router.put("/api/workouts/:id", async (req, res) => {
 router.post("/api/workouts", async (req, res) => {
   try {
     const data = await Workout.create(req.body);
-    res.json(data);
+    return res.json(data);
   } catch (err) {
-    res.status(400).json(err);
+    return res.status(400).json(err);
   };
 });
 
@@ -73,9 +73,9 @@ router.post("/api/workouts", async (req, res) => {
 router.get("/api/workouts/range", async (req, res) => {
   try {
     const data = await Workout.find({});
-    res.json(data);
+    return res.json(data);
   } catch (err) {
-    res.status(400).json(err);
+    return res.status(400).json(err);
   }
 });
 
