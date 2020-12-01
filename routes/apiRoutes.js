@@ -16,12 +16,14 @@ const Workout = require("../models/Workout");
 //   const json = await res.json();
 //   return json[json.length - 1];
 // },
-router.get("/api/workouts", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await Workout.find({});
-    return res.json(data);
+    // return res.json(data);
+    res.json(data);
   } catch (err) {
-    return res.status(400).json(err);
+    // return res.status(400).json(err);
+    res.status(400).json(err);
   }
 });
 
@@ -35,15 +37,17 @@ router.get("/api/workouts", async (req, res) => {
 //   const json = await res.json();
 //   return json;
 // },
-router.put("/api/workouts/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     let saved = [];
     const previous = await Workout.findById(req.params.id);
     saved = previous.exercises;
     let allExercises = [...saved, req.body];
-    return res.json(allExercises);
+    // return res.json(allExercises);
+    res.json(allExercises);
   } catch (err) {
-    return res.status(400).json(err);
+    // return res.status(400).json(err);
+    res.status(400).json(err);
   }
 });
 
@@ -56,12 +60,14 @@ router.put("/api/workouts/:id", async (req, res) => {
 //   const json = await res.json();
 //   return json;
 // },
-router.post("/api/workouts", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const data = await Workout.create(req.body);
-    return res.json(data);
+    // return res.json(data);
+    res.json(data);
   } catch (err) {
-    return res.status(400).json(err);
+    // return res.status(400).json(err);
+    res.status(400).json(err);
   };
 });
 
@@ -70,12 +76,14 @@ router.post("/api/workouts", async (req, res) => {
 //   const json = await res.json();
 //   return json;
 // },
-router.get("/api/workouts/range", async (req, res) => {
+router.get("/range", async (req, res) => {
   try {
     const data = await Workout.find({});
-    return res.json(data);
+    // return res.json(data);
+    res.json(data);
   } catch (err) {
-    return res.status(400).json(err);
+    // return res.status(400).json(err);
+    res.status(400).json(err);
   }
 });
 
