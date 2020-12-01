@@ -12,8 +12,8 @@ app.use(express.static("public", {
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", htmlRoutes);
-app.use("/api/workouts", apiRoutes);
+app.use(htmlRoutes);
+app.use(apiRoutes);
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/Workout",

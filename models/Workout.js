@@ -40,7 +40,11 @@ const WorkoutSchema = new Schema ({
         trim: true
       }
     }
-  ]
+  ],
+  totalTime: {
+    type: Number,
+    default: 0
+  }
 },
 {
   toOBject: {
@@ -53,6 +57,7 @@ const WorkoutSchema = new Schema ({
 
 WorkoutSchema.virtual("totalDuration").get(function() {
   return this.exercises.reduce((time, exercise) => {
+    this.totalTime = time + (exercise.duration || 0);
     return time + (exercise.duration || 0);
   })
 })
