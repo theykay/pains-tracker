@@ -1,20 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const routes = require("./controller/routes");
+const apiRoutes = require("./routes/apiRoutes");
+const htmlRoutes = require("./routes/htmlRoutes");
 
 var app = express();
 var PORT = process.env.PORT || 8080;
-const db = require("./models");
+// const db = require("./models");
 
 app.use(express.static("public", {
   extensions: ["html"]
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", routes);
+app.use("/", htmlRoutes);
+app.use("/api/workouts", apiRoutes);
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/pain-tracker",
+  process.env.MONGODB_URI || "mongodb://localhost/Workout",
   {
     useNewUrlParse: true,
     useUnifiedTopology: true,
